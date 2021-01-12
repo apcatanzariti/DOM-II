@@ -12,6 +12,8 @@ const buttonsArray = Array.from(buttons);
 const homeButton = document.querySelector('.nav-link');
 const getBody = document.querySelector('body');
 const getLogo = document.querySelector('.logo-heading');
+const navItems = document.querySelectorAll('.nav .nav-link');
+const navItemsArray = Array.from(navItems);
 
 
 // Hovering over the 'lets go' text changes the color of the text!
@@ -83,11 +85,44 @@ homeButton.addEventListener('dblclick', (e) => {
     getBody.style.backgroundColor = 'lightGray';
 });
 
-// When the G key is unpressed, it toggles between green and black!
+// When the G key is unpressed, the logo toggles between green and black!
 
 window.addEventListener('keyup', (e) => {
     if (e.keyCode === 71) {
         getLogo.classList.toggle('green');
     };
 });
+
+// The logo will rotate around 360 degrees each time it is clicked!
+
+getLogo.addEventListener('mousedown', (e) => {
+    getLogo.classList.toggle('rotate');
+});
+
+getLogo.addEventListener('transitionend', (e) => {
+    getLogo.classList.toggle('rotate');
+});
+
+// Task 2 prevent event propagation
+
+function listener (event) {
+    console.log(event.target);
+};
+
+window.addEventListener('click', listener);
+
+document.addEventListener('click', e => e.stopPropagation());
+
+document.body.addEventListener('click', listener);
+
+// Task 2 navigation items
+
+navItemsArray.forEach(element => {
+    element.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Prevented!');
+    });
+});
+
+
 
